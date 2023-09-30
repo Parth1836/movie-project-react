@@ -1,0 +1,9 @@
+.movie-detail-paper  .movie-typo{
+    color: white;
+    font-size: 20px;
+}
+
+.movie-detail-paper  .movie-details {
+    margin-top: 10%;
+    text-align: left;
+}
