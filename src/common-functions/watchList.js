@@ -36,3 +36,22 @@ export const checkMovieForWatchList = (movieId) => {
   }
   return false;
 };
+
+export const removeFromWatchlist = (movieId) => {
+  const listFromLocalStorage = JSON.parse(localStorage.getItem("watchList"));
+  console.log(
+    "43 removeFromWatchlist fun",
+    listFromLocalStorage,
+    listFromLocalStorage?.length > 0,
+    movieId
+  );
+  if (listFromLocalStorage && listFromLocalStorage?.length > 0) {
+    const filteredMovie = listFromLocalStorage?.filter((ele) => {
+      return ele.id !== movieId;
+    });
+    console.log("filteredMovie", filteredMovie);
+    localStorage.setItem("watchList", JSON.stringify(filteredMovie));
+    return true;
+  }
+  return false;
+};

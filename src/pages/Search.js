@@ -25,18 +25,20 @@ export const Search = () => {
   const [moviesList, setMoviesList] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalResults, setTotalResults] = useState(0);
 
   const loadSearchMoviesData = async (pageNumber = page, type, subUrl) => {
     const url = `${API_URL}/${type}/movie?api_key=26eb8fe0ea17478b691097b4e10c4ac9${subUrl}&page=${pageNumber}`;
     const moviesData = await axios.get(url);
     console.log("movies Data", moviesData);
     setTotalPages(moviesData?.data?.total_pages);
+    setTotalResults(moviesData?.data?.total_results);
     setMoviesList(moviesData?.data?.results);
   };
 
   const changePage = (pageNumber) => {
-    loadSearchMoviesData(pageNumber);
     setPage(pageNumber);
+    window?.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -47,16 +49,23 @@ export const Search = () => {
       const subUrl = `&query=${searchQuery}`;
       loadSearchMoviesData(page, "search", subUrl);
     }
-  }, [searchQuery, genreId]);
+  }, [searchQuery, genreId, page]);
 
   return (
     <>
       <Header />
+      {console.log("result", moviesList)}
+      {searchQuery && searchQuery?.length && (
+          <h2 style={{color: "cornflowerblue"}}>
+            Total results for {searchQuery}: {totalResults}
+          </h2>
+        )}
       <Grid
-        style={{ padding: "50px 25px", minHeight: "600px" }}
+        style={{ padding: "25px", minHeight: "600px" }}
         container
         spacing={2}
       >
+        
         {moviesList?.map((movie, idx) => (
           <Grid style={{ width: "90%" }} item xs={6} md={2.4} lg={2.4}>
             <div

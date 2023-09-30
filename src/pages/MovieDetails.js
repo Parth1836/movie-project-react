@@ -7,6 +7,7 @@ import "./MovieDetails.css";
 import {
   addToWatchList,
   checkMovieForWatchList,
+  removeFromWatchlist,
 } from "../common-functions/watchList";
 import { convertMinutesToHours } from "../common-functions/convertMinutes";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -39,8 +40,14 @@ export const MovieDetails = () => {
   }, [movieDetails]);
 
   const handleWatchList = () => {
-    const added = addToWatchList(movieDetails);
-    setIsAddedToWatchList(added);
+    if(isAddedToWatchList){
+      removeFromWatchlist(movieDetails?.id);
+      setIsAddedToWatchList(false);
+    }else {
+      const added = addToWatchList(movieDetails);
+      setIsAddedToWatchList(added);
+    }
+    
   };
   return (
     <>
@@ -67,7 +74,7 @@ export const MovieDetails = () => {
               src={IMG_URL + movieDetails?.poster_path}
               alt="Image Alt"
             />
-             </Grid>
+          </Grid>
           <Grid className="movie-details" item xs={6}>
             <Typography className="movie-typo" variant="body1">
               Release Date: {movieDetails?.release_date}
@@ -91,7 +98,7 @@ export const MovieDetails = () => {
               color="primary"
               onClick={() => handleWatchList()}
             >
-              {isAddedToWatchList ? "Added" : "+ Add To WatchList"}
+              {isAddedToWatchList ? "Remove from WatchList" : "Add To Watchlist"}
             </Button>
           </Grid>
         </Grid>

@@ -24,6 +24,7 @@ export const Dashboard = () => {
   const changePage = (pageNumber) => {
     dispatch(getAllMovies(pageNumber));
     page = pageNumber;
+    window?.scrollTo(0,0);
   };
 
   useEffect(() => {
@@ -40,18 +41,20 @@ export const Dashboard = () => {
     <>
       <Grid container>
         <Header />
-        <Grid style={{ display: "flex", margin: "auto" }}>
+        <Grid style={{ display: "flex", margin: "auto", marginTop: "7px" }}>
           <TextField
             id="standard-textarea"
             label="Search Movie"
             placeholder="Search Movie"
             variant="standard"
+            style={{width: "500px"}}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <Button
-            style={{ margin: "10px" }}
+            style={{ margin: "10px", borderRadius:"20px" }}
             variant="contained"
             onClick={() => searchMovie()}
+            disabled={!searchQuery}
           >
             Search
           </Button>
