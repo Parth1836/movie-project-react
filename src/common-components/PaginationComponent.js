@@ -2,7 +2,6 @@ import { Box, Container, Pagination } from "@mui/material";
 import React from "react";
 
 const PaginationComponent = (props) => {
-    console.log("pagination props", props);
   const { totalPages, changePage, currentPage } = props;
   return (
     <Container

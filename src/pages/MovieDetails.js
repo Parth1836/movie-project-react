@@ -14,7 +14,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export const MovieDetails = () => {
   const searchParams = new URLSearchParams(document.location.search);
-  console.log("search PArams", searchParams.get("query"));
   const movieId = searchParams.get("id");
   const [movieDetails, setMovieDetail] = useState(null);
   const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
@@ -22,9 +21,7 @@ export const MovieDetails = () => {
   const loadMovieDetail = async () => {
     const url = `${API_URL}/movie/${movieId}?api_key=26eb8fe0ea17478b691097b4e10c4ac9`;
     const movieData = await axios.get(url);
-    console.log("movies Data", movieData);
     const genresDetails = movieData?.data?.genres?.map((gen) => gen?.name);
-    console.log("genres details", genresDetails.join(" "));
     setGenres(genresDetails?.join(" "));
     setMovieDetail(movieData?.data);
   };
@@ -35,7 +32,6 @@ export const MovieDetails = () => {
 
   useEffect(() => {
     const isAdded = checkMovieForWatchList(movieDetails?.id);
-    console.log("isAdded", isAdded);
     setIsAddedToWatchList(isAdded);
   }, [movieDetails]);
 
@@ -60,6 +56,7 @@ export const MovieDetails = () => {
           width: "100%",
           backgroundImage: `url(${IMG_URL}${movieDetails?.backdrop_path})`,
           backgroundSize: "cover",
+          marginTop: "5%"
         }}
       >
         <Grid container spacing={2}>

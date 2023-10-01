@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Dashboard } from "./pages/Dashboard";
-import { MovieList } from "./pages/MovieList";
+import { MovieList } from "./common-components/MovieList";
 import { Search } from "./pages/Search";
 import Header from "./common-components/Header";
 import { AboutUs } from "./pages/AboutUs";

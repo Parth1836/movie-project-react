@@ -49,7 +49,6 @@ function Header() {
   };
 
   const handleOpenGenresMenu = (event) => {
-    console.log("handle open", event.currentTarget);
     setGenresMenu(event.currentTarget);
   };
 
@@ -58,7 +57,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

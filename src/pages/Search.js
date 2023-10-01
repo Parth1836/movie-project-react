@@ -1,22 +1,14 @@
 import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
   Grid,
-  Pagination,
-  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { API_URL, IMG_URL } from "../constans/API";
+import { API_URL } from "../constans/API";
 import axios from "axios";
 import Header from "../common-components/Header";
-import { useNavigate } from "react-router-dom";
 import PaginationComponent from "../common-components/PaginationComponent";
+import { MovieList } from "../common-components/MovieList";
 
 export const Search = () => {
-  const navigate = useNavigate();
   const searchParams = new URLSearchParams(document.location.search);
   const searchQuery = searchParams.get("query");
   const genreId = searchParams.get("genreId");
@@ -54,42 +46,17 @@ export const Search = () => {
   return (
     <>
       <Header />
-      {console.log("result", moviesList)}
-      {searchQuery && searchQuery?.length && (
-          <h2 style={{color: "cornflowerblue"}}>
-            Total results for {searchQuery}: {totalResults}
-          </h2>
-        )}
       <Grid
-        style={{ padding: "25px", minHeight: "600px" }}
+        style={{ padding: "25px", minHeight: "600px", marginTop: "5%" }}
         container
         spacing={2}
       >
-        
-        {moviesList?.map((movie, idx) => (
-          <Grid style={{ width: "90%" }} item xs={6} md={2.4} lg={2.4}>
-            <div
-              id={idx}
-              onClick={() => navigate(`/movie-details?id=${movie?.id}`)}
-            >
-              <Card sx={{ maxWidth: 345 }}>
-                <CardMedia
-                  sx={{ height: 350 }}
-                  image={IMG_URL + movie?.poster_path}
-                  title="green iguana"
-                />
-                <CardContent className="movie-card-content">
-                  <Typography className="typo" gutterBottom component="div">
-                    {movie?.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {movie?.release_date}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </div>
-          </Grid>
-        ))}
+        {searchQuery && searchQuery?.length && (
+          <h2 style={{ color: "cornflowerblue", margin:"auto" }}>
+            Total results for {searchQuery}: {totalResults}
+          </h2>
+        )}
+        {moviesList?.length && <MovieList moviesList={moviesList} />}
       </Grid>
       <PaginationComponent
         totalPages={totalPages}
